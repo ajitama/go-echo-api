@@ -23,7 +23,6 @@ func RegisterHandlers(router *echo.Echo, handler api.Handler) {
 
 	// 以下ミドルウェアによる認証が必が必要なAPIグループ
 	clientGroup := router.Group("api/v2", util.AuthCheckMiddleware)
-	clientGroup.GET("/api/open/healthcheck", wrapper.GetApiOpenHealthcheck)
 	clientGroup.POST("/myshop/delete", wrapper.PostApiV2MyshopDelete)
 	clientGroup.POST("/myshop", wrapper.PostApiV2Myshop)
 	clientGroup.GET("/myshop/:memberId", wrapper.GetApiV2MyshopMemberId)
@@ -41,6 +40,8 @@ func SetUpEchoServer(swaggerPath string) (*echo.Echo, error) {
 	}
 
 	// Swaggerのセットアップ
+	//https://pkg.go.dev/github.com/do87/oapi-codegen/pkg/middleware#OapiValidatorFromYamlFile
+	//  YAML ファイル パスからバリデータ ミドルウェアを作成する(swaggerにパス定義されてないとエラー)
 	f, err := middleware.OapiValidatorFromYamlFile(swaggerPath)
 	if err != nil {
 		log.Fatal(err)

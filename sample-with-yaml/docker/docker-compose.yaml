@@ -13,5 +13,5 @@ services:
       MYSQL_PASSWORD: password
       TZ: Asia/Tokyo
     volumes:
-      - ./mysql/my.cnf:/etc/alternatives/my.cnf
-      - ./mysql/data:/docker-entrypoint-initdb.d
+      - ./mysql/conf/my.cnf:/etc/alternatives/my.cnf
+      - ./mysql/data:/docker-entrypoint-initdb.d # 初期DB

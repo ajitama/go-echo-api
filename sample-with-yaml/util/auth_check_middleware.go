@@ -58,9 +58,9 @@ func AuthCheckMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		req := ctx.Request()
 		// Headerからキーを取得
-		_, ok1 := req.Header["Cid"]
+		//_, ok1 := req.Header["Cid"]
 		_, ok2 := req.Header["Apptoken"]
-		if !ok1 || !ok2 {
+		if !ok2 {
 			// エラー
 			output := fmt.Sprintf("%#v", req.Header)
 			fmt.Println([]byte(output + "\n"))

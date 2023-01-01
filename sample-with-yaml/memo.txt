@@ -1,0 +1,35 @@
+# docker database connect
+### docker-compose
+cd docker
+docker-compose up -d
+
+### container access
+mysql -u user -ppassword -P 3306 -h 127.0.0.1 -D example
+
+# go start
+source .env.sample
+go run main.go
+
+
+
+### API call
+- ヘルスチェック(GET /api/open/healthcheck)
+curl localhost:8080/api/open/healthcheck
+
+- (GET /api/v2/user/detail/:memberId)
+curl -H "Apptoken:12345" localhost:8080/api/v2/user/detail/12356
+
+- (POST /api/v2/user/update)
+
+
+- (GET /api/v2/myshop/:memberId)
+- (POST /api/v2/myshop/)
+
+- (POST /api/v2/myshop/delete)
+
+
+
+
+
+
+
