@@ -30,268 +30,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/resultError'
 
-  /api/v2/myshop/{memberId}:
-    get:
-      summary: マイ店舗 一覧取得
-      tags: [ "マイ店舗" ]
-      parameters:
-        - $ref: '#/components/parameters/getMyMemberId'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resultMyShop'
-              examples:
-                sample-1:
-                  summary: 通常レスポンス（データあり）
-                  value:
-                    header:
-                      status: "200"
-                      error_message: ""
-                    response: [
-                        {
-                          shop_cd: "06666",
-                          name: "AA店"
-                        },
-                        {
-                          shop_cd: "07777",
-                          name: "BBB店"
-                        },
-                        {
-                          shop_cd: "08888",
-                          name: "CCCC店"
-                        },
-                        {
-                          shop_cd: "09999",
-                          name: "DDDDD店"
-                        },
-                    ]
-                sample-2:
-                  summary: 通常レスポンス（データなし）
-                  value:
-                    header:
-                      status: "200"
-                      error_message: ""
-                    response: [ ]
-        '401':
-          description: API-Gatewayレスポンス
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/commonResultError'
-              examples:
-                sample-1:
-                  summary: Error
-                  value:
-                    header:
-                      status: "401"
-                      error_message: "Unauthorized"
-                    response: [ ]
-        '500':
-          description: NG
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/commonResultError'
-              examples:
-                sample-1:
-                  summary: Error
-                  value:
-                    header:
-                      status: "500"
-                      error_message: "予期せぬエラーが発生"
-                    response: [ ]
-
-  /api/v2/myshop:
-    post:
-      summary: マイ店舗 登録
-      tags: [ "マイ店舗" ]
-      requestBody:
-        description: マイ店舗登録リクエスト
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/requestMyShopParams'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resultMyShop'
-              examples:
-                sample-1:
-                  summary: 通常レスポンス（リクエスト内で登録した店舗コードのみレスポンス）
-                  value:
-                    header:
-                      status: "200"
-                      error_message: ""
-                    response: [
-                        {
-                          shop_cd: "06666",
-                          name: "AA店"
-                        },
-                        {
-                          shop_cd: "07777",
-                          name: "BBB店"
-                        },
-                        {
-                          shop_cd: "08888",
-                          name: "CCCC店"
-                        },
-                        {
-                          shop_cd: "09999",
-                          name: "DDDDD店"
-                        },
-
-                    ]
-                sample-2:
-                  summary: 通常レスポンス（登録済みのため、レスポンスなし）
-                  value:
-                    header:
-                      status: "200"
-                      error_message: ""
-                    response: [ ]
-        '400':
-          description: NG
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/commonResultError'
-              examples:
-                sample-1:
-                  summary: Error
-                  value:
-                    header:
-                      status: "400"
-                      error_message: "リクエストパラメータ不正"
-                    response: [ ]
-        '401':
-          description: API-Gatewayレスポンス
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/commonResultError'
-              examples:
-                sample-1:
-                  summary: Error
-                  value:
-                    header:
-                      status: "401"
-                      error_message: "Unauthorized"
-                    response: [ ]
-        '500':
-          description: NG
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/commonResultError'
-              examples:
-                sample-1:
-                  summary: Error
-                  value:
-                    header:
-                      status: "500"
-                      error_message: "予期せぬエラーが発生"
-                    response: [ ]
-  /api/v2/myshop/delete:
-    post:
-      summary: マイ店舗削除
-      tags: [ "マイ店舗" ]
-      requestBody:
-        description: マイ店舗削除リクエスト
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/requestMyShopParams'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resultMyShop'
-              examples:
-                sample-1:
-                  summary: 通常レスポンス（リクエスト内で削除した店舗コードのみレスポンス）
-                  value:
-                    header:
-                      status: "200"
-                      error_message: ""
-                    response: [
-                        {
-                          shop_cd: "06666",
-                          name: "AA店"
-                        },
-                        {
-                          shop_cd: "08888",
-                          name: "CCCC店"
-                        },
-                    ]
-                sample-2:
-                  summary: 通常レスポンス（削除済みのため、レスポンスなし）
-                  value:
-                    header:
-                      status: "200"
-                      error_message: ""
-                    response: [ ]
-                sample-3:
-                  summary: 通常レスポンス（1店舗削除した時のレスポンス）
-                  value:
-                    header:
-                      status: "200"
-                      error_message: ""
-                    response: [
-                        {
-                          shop_cd: "09999",
-                          name: "DDDDD店"
-                        },
-                    ]
-        '400':
-          description: NG
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/commonResultError'
-              examples:
-                sample-1:
-                  summary: Error
-                  value:
-                    header:
-                      status: "400"
-                      error_message: "リクエストパラメータ不正"
-                    response: [ ]
-        '401':
-          description: API-Gatewayレスポンス
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/commonResultError'
-              examples:
-                sample-1:
-                  summary: Error
-                  value:
-                    header:
-                      status: "401"
-                      error_message: "Unauthorized"
-                    response: [ ]
-        '500':
-          description: NG
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/commonResultError'
-              examples:
-                sample-1:
-                  summary: Error
-                  value:
-                    header:
-                      status: "500"
-                      error_message: "予期せぬエラーが発生"
-                    response: [ ]
-
 
 
   /api/v2/user/detail/{memberId}:
@@ -307,96 +45,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/resultUserDetail'
-              examples:
-                sample-1:
-                  summary: 通常レスポンス(非モスカード会員)
-                  value:
-                    header:
-                      status: "200"
-                      error_message: ""
-                    response: {
-                      member_id: "1234567890",
-                      sid: "",
-                      uid: "",
-                      carrier: "sp",
-                      device_type_entry: "",
-                      device_type_update: "",
-                      mail_address: "test-test@imjp.co.jp",
-                      contract_status: "1",
-                      nickname: "ああああああ",
-                      postal_code: "1410032",
-                      prefectures: "13",
-                      address1: "品川区",
-                      address2: "大崎２丁目１-１",
-                      address3: "住友不動産麻布十番ビル９Ｆ",
-                      address_code: "13109003002",
-                      birthday: "2000-01-01T00:00:00Z",
-                      sex: 2,
-                      moscard_flag: 0,
-                      nos_flag: 1,
-                      child_member_flag: 0,
-                      last_continue_time: "2018-10-04 14:31:48",
-                      via: "",
-                      contract_date: "2018-10-04 14:31:48",
-                      cancel_date: "",
-                      old_member_flag: "",
-                      old_user_id: "",
-                      nos_id: "W000000002494",
-                      simple_login_flag: 0,
-                      omit_password_flag: 1,
-                      mymos_rank_id: 0,
-                      mymos_rank_name: "",
-                      next_mymos_rank_id: 0,
-                      next_mymos_rank_name: ""
-                    }
-                sample-2:
-                  summary: 通常レスポンス(モスカード会員)
-                  value:
-                    header:
-                      status: "200"
-                      error_message: ""
-                    response: {
-                      member_id: "99999999",
-                      sid: "",
-                      uid: "",
-                      carrier: "sp",
-                      device_type_entry: "",
-                      device_type_update: "",
-                      mail_address: "test@example.jp",
-                      contract_status: "1",
-                      nickname: "いいいい",
-                      postal_code: "1410032",
-                      prefectures: "13",
-                      address1: "テスト住所１",
-                      address2: "テスト住所２",
-                      address3: "テスト住所３",
-                      address_code: "13109003002",
-                      birthday: "2000-01-01T00:00:00Z",
-                      sex: 2,
-                      moscard_flag: 1,
-                      nos_flag: 1,
-                      child_member_flag: 0,
-                      last_continue_time: "2018-10-04 14:31:48",
-                      via: "",
-                      contract_date: "2018-10-04 14:31:48",
-                      cancel_date: "",
-                      old_member_flag: "",
-                      old_user_id: "",
-                      nos_id: "W000000000001",
-                      simple_login_flag: 0,
-                      omit_password_flag: 1,
-                      mymos_rank_id: 3,
-                      mymos_rank_name: "ゴールド",
-                      next_mymos_rank_id: 2,
-                      next_mymos_rank_name: "シルバー"
-                    }
 
         '400':
           description: NG
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/commonResultError'
+                $ref: '#/components/schemas/commonResult'
               examples:
                 sample-1:
                   summary: Error
@@ -410,7 +65,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/commonResultError'
+                $ref: '#/components/schemas/commonResult'
               examples:
                 sample-1:
                   summary: Error
@@ -425,7 +80,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/commonResultError'
+                $ref: '#/components/schemas/commonResult'
               examples:
                 sample-1:
                   summary: Error
@@ -434,7 +89,6 @@ paths:
                       status: "500"
                       error_message: "予期せぬエラーが発生"
                     response: null
-
 
   /api/v2/user/update:
     post:
@@ -466,7 +120,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/commonResultError'
+                $ref: '#/components/schemas/commonResult'
               examples:
                 sample-1:
                   summary: Error
@@ -480,7 +134,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/commonResultError'
+                $ref: '#/components/schemas/commonResult'
               examples:
                 sample-1:
                   summary: Error
@@ -494,7 +148,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/commonResultError'
+                $ref: '#/components/schemas/commonResult'
               examples:
                 sample-1:
                   summary: Error
@@ -504,8 +158,167 @@ paths:
                       error_message: "予期せぬエラーが発生"
                     response: null
 
+  /api/v2/myshop/{memberId}:
+    get:
+      summary: マイ店舗 一覧取得
+      tags: [ "マイ店舗" ]
+      parameters:
+        - $ref: '#/components/parameters/getMyMemberId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resultMyShop'
 
+        '401':
+          description: API-Gatewayレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonResult'
+              examples:
+                sample-1:
+                  summary: Error
+                  value:
+                    header:
+                      status: "401"
+                      error_message: "Unauthorized"
+                    response: [ ]
+        '500':
+          description: NG
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonResult'
+              examples:
+                sample-1:
+                  summary: Error
+                  value:
+                    header:
+                      status: "500"
+                      error_message: "予期せぬエラーが発生"
+                    response: [ ]
 
+  /api/v2/myshop:
+    post:
+      summary: マイ店舗 登録
+      tags: [ "マイ店舗" ]
+      requestBody:
+        description: マイ店舗登録リクエスト
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/requestMyShopParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resultMyShop'
+        '400':
+          description: NG
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonResult'
+              examples:
+                sample-1:
+                  summary: Error
+                  value:
+                    header:
+                      status: "400"
+                      error_message: "リクエストパラメータ不正"
+                    response: [ ]
+        '401':
+          description: API-Gatewayレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonResult'
+              examples:
+                sample-1:
+                  summary: Error
+                  value:
+                    header:
+                      status: "401"
+                      error_message: "Unauthorized"
+                    response: [ ]
+        '500':
+          description: NG
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonResult'
+              examples:
+                sample-1:
+                  summary: Error
+                  value:
+                    header:
+                      status: "500"
+                      error_message: "予期せぬエラーが発生"
+                    response: [ ]
+  /api/v2/myshop/delete:
+    post:
+      summary: マイ店舗削除
+      tags: [ "マイ店舗" ]
+      requestBody:
+        description: マイ店舗削除リクエスト
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/requestMyShopParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resultMyShop'
+        '400':
+          description: NG
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonResult'
+              examples:
+                sample-1:
+                  summary: Error
+                  value:
+                    header:
+                      status: "400"
+                      error_message: "リクエストパラメータ不正"
+                    response: [ ]
+        '401':
+          description: API-Gatewayレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonResult'
+              examples:
+                sample-1:
+                  summary: Error
+                  value:
+                    header:
+                      status: "401"
+                      error_message: "Unauthorized"
+                    response: [ ]
+        '500':
+          description: NG
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonResult'
+              examples:
+                sample-1:
+                  summary: Error
+                  value:
+                    header:
+                      status: "500"
+                      error_message: "予期せぬエラーが発生"
+                    response: [ ]
 
 
 components:
@@ -541,6 +354,7 @@ components:
       required:
         - result
         - error
+        
     error:
       type: object
       description: エラー情報
@@ -584,37 +398,6 @@ components:
         - header
         - response
 
-    commonResultError:
-      type: object
-      description: 共通エラーレスポンス
-      properties:
-        header:
-          $ref: '#/components/schemas/commonHeader'
-        response:
-          type: array
-          description: レスポンス部（Null）
-          items:
-            default: { }
-      required:
-        - header
-        - response
-
-
-    shopList:
-      type: object
-      description: 店舗ID配列
-      properties:
-        shop_cd:
-          type: string
-          description: 店舗コード
-        name:
-          type: string
-          description: 店舗名
-
-      required:
-        - shop_cd
-        - name
-
 
     requestMyShopParams:
       type: object
@@ -626,7 +409,7 @@ components:
           minLength: 1
         shop_list:
           type: array
-          description: 登録店舗コード
+          description: 店舗コード
           items:
             type: string
 
@@ -649,7 +432,20 @@ components:
         - header
         - response
 
+    shopList:
+      type: object
+      description: 店舗ID配列
+      properties:
+        shop_cd:
+          type: string
+          description: 店舗コード
+        name:
+          type: string
+          description: 店舗名
 
+      required:
+        - shop_cd
+        - name
 
 
     requestUserUpdateParams:
@@ -663,187 +459,52 @@ components:
         user_data:
           type: object
           description: 更新項目一覧
-          properties:
-            nickname:
-              type: string
-              description: ニックネーム
-              maxLength: 50
-              minLength: 1
-            birthday:
-              type: string
-              format: 'date-time'
-              description: 生年月日 2000-01-01T00:00:00Z
-              minLength: 1
-            sex:
-              type: integer
-              description: 性別 1は男性、2が女性
-              enum: [ 1, 2 ]
-              minimum: 1
-            prefectures:
-              type: string
-              description: 居住地
-              enum: [ "01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47" ]
-              minLength: 1
-            updated_at:
-              type: string
-              format: 'date-time'
-              description: 更新日
-          required:
-            - nickname
-            - birthday
-            - sex
-            - prefectures
+          items:
+            $ref: '#/components/schemas/userUpdateParam'
       required:
         - member_id
         - user_data
 
-    userData:
+    userUpdateParam:
       type: object
-      description: 会員情報詳細
+      description: 会員情報詳細構造体
       properties:
-        member_id:
-          description: 会員ID
-          type: string
-        sid:
-          description: セッションID
-          type: string
-        uid:
-          description: UID
-          type: string
-        carrier:
-          description: キャリア
-          type: string
-        device_type_entry:
-          description: 端末タイプ(初回登録時)
-          type: string
-        device_type_update:
-          description: 端末タイプ（更新時）
-          type: string
-        mail_address:
-          description: メールアドレス
-          type: string
-        contract_status:
-          description: 会員ステータス
-          type: string
-        nickname:
-          description: ニックネーム
-          type: string
-        postal_code:
-          description: 郵便番号
-          type: string
-        prefectures:
-          description: 都道府県コード
-          type: string
-        address1:
-          description: 市区町村
-          type: string
-        address2:
-          description: 町域
-          type: string
-        address3:
-          description: マンション名等
-          type: string
-        address_code:
-          description: 住所コード
-          type: string
-        birthday:
+        birth_date:
           description: 生年月日。フォーマットは"2000-01-01T00:00:00Z"
           type: string
           format: 'date-time'
-        sex:
+        first_name: 
+          description: 名前 
+          type: string
+          default: ""
+        last_name: 
+          description: 名字 
+          type: string
+          default: ""          
+        gender:
           description: 性別
-          type: integer
-        moscard_flag:
-          description: ホルダー会員フラグ
-          type: integer
-        nos_flag:
-          description: NOS会員フラグ
-          type: integer
-        child_member_flag:
-          description: こども会員フラグ
-          type: integer
-        last_continue_time:
-          description: 最終アクセス日
           type: string
-        via:
-          description: 経由
+        updated_at:
+          description: 更新日。フォーマットは"2000-01-01T00:00:00Z"
           type: string
-        contract_date:
-          description: 登録日
+          format: 'date-time'
+        created_at:
+          description: 作成日。フォーマットは"2000-01-01T00:00:00Z"
           type: string
-        cancel_date:
-          description: 解約日
-          type: string
-        old_member_flag:
-          description: 旧会員フラグ
-          type: integer
-        old_user_id:
-          description: 旧会員ID
-          type: string
-        nos_id:
-          description: NOSID
-          type: string
-        simple_login_flag:
-          description: 簡単ログインフラグ
-          type: integer
-        omit_password_flag:
-          description: パスワード省略フラグ
-          type: integer
-        mymos_rank_id:
-          description: 今年度マイモスユーザランク
-          type: integer
-          default: 0
-        mymos_rank_name:
-          description: 今年度マイモスユーザランク名
-          type: string
-          default: ""
-        next_mymos_rank_id:
-          description: 次年度マイモスユーザランク
-          type: integer
-          default: 0
-        next_mymos_rank_name:
-          description: 次年度マイモスユーザランク名
-          type: string
-          default: ""
-
+          format: 'date-time'
       required:
-        - member_id
-        - sid
-        - uid
-        - carrier
-        - device_type_entry
-        - device_type_update
-        - mail_address
-        - contract_status
-        - nickname
-        - postal_code
-        - prefectures
-        - address1
-        - address2
-        - address3
-        - address_code
-        - birthday
-        - sex
-        - moscard_flag
-        - nos_flag
-        - child_member_flag
-        - last_continue_time
-        - via
-        - contract_date
-        - cancel_date
-        - old_member_flag
-        - old_user_id
-        - nos_id
-        - simple_login_flag
-        - omit_password_flag
-        - mymos_rank_id
-        - mymos_rank_name
-        - next_mymos_rank_id
-        - next_mymos_rank_name
+        - birth_date
+        - first_name
+        - last_name
+        - gender
+        - updated_at
+        - created_at
+
+
 
     resultUserDetail:
       type: object
-      description: メルマガフラグ操作インターフェース
+      description: ユーザ詳細レスポンス
       properties:
         header:
           $ref: '#/components/schemas/commonHeader'
@@ -853,43 +514,43 @@ components:
         - header
         - response
 
-    melmagaFlags:
+    userData:
       type: object
-      description: 更新ユーザ情報配列
+      description: 会員情報詳細構造体
       properties:
-        mail_magazine_flag:
-          description: 通常メルマガフラグ
-          type: integer
-          format: int32
-        shop_mail_magazine_flag:
-          description: 店舗メルマガフラグ
-          type: integer
-          format: int32
-        birthday_mail_magazine_flag:
-          description: 誕生日メルマガフラグ
-          type: integer
-          format: int32
-        waiwai_mail_magazine_flag:
-          description: モスワイワイメルマガフラグ
-          type: integer
-          format: int32
-        nos_mail_magazine_flag:
-          description: NOSメルマガフラグ
-          type: integer
-          format: int32
-        rank_mail_magazine_flag:
-          description: モス カード会員限定メルマガフラグ
-          type: integer
-          format: int32
+        emp_no:
+          description: 会員ID
+          type: string
+        birth_date:
+          description: 生年月日。フォーマットは"2000-01-01T00:00:00Z"
+          type: string
+          format: 'date-time'
+        first_name: 
+          description: 名前 
+          type: string
+          default: ""
+        last_name: 
+          description: 名字 
+          type: string
+          default: ""          
+        gender:
+          description: 性別
+          type: string
+        updated_at:
+          description: 更新日。フォーマットは"2000-01-01T00:00:00Z"
+          type: string
+          format: 'date-time'
+        created_at:
+          description: 作成日。フォーマットは"2000-01-01T00:00:00Z"
+          type: string
+          format: 'date-time'
       required:
-        - mail_magazine_flag
-        - shop_mail_magazine_flag
-        - birthday_mail_magazine_flag
-        - waiwai_mail_magazine_flag
-        - nos_mail_magazine_flag
-        - rank_mail_magazine_flag
-
-
-
+        - emp_no
+        - birth_date
+        - first_name
+        - last_name
+        - gender
+        - updated_at
+        - created_at
 
 

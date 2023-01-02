@@ -29,7 +29,7 @@ func ErrorResult(ctx echo.Context, status int, message string) error {
 	}
 	var responseBody []interface{}
 
-	result := openapi.CommonResultError{
+	result := openapi.CommonResult{
 		Header:   header,
 		Response: responseBody,
 	}
