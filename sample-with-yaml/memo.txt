@@ -16,20 +16,21 @@ go run main.go
 - ヘルスチェック(GET /api/open/healthcheck)
 curl localhost:8080/api/open/healthcheck
 
-- (GET /api/v2/user/detail/:memberId)
-curl -H "Apptoken:12345" localhost:8080/api/v2/user/detail/12356
+- 会員情報取得(GET /api/v2/user/detail/:memberId)
+curl -H "Apptoken:12345" localhost:8080/api/v2/user/detail/10001
 
 - (POST /api/v2/user/update)
-
-
-- (GET /api/v2/myshop/:memberId)
-- (POST /api/v2/myshop/)
-
-- (POST /api/v2/myshop/delete)
+curl -H 'Content-type:application/json' -H "Apptoken:12345" localhost:8080/api/v2/user/update -d  '{"emp_no":"10005","user_data":{"birth_date":"1963-06-10T00:00:00Z","first_name":"太郎","gender":"F","last_name":"テスト"}}'
 
 
 
+- マイ店舗情報取得(GET /api/v2/myshop/:empNo)
+curl -H "Apptoken:12345" localhost:8080/api/v2/myshop/10001
+
+- マイ店舗登録(POST /api/v2/myshop)
+curl -H 'Content-type:application/json' -H "Apptoken:12345" localhost:8080/api/v2/myshop -d '{"emp_no":"10005","shop_list":["1","2","3","4"]}'
 
 
-
+- マイ店舗削除(POST /api/v2/myshop/delete)
+curl  -H 'Content-type:application/json' -H "Apptoken:12345" localhost:8080/api/v2/myshop/delete -d '{"emp_no":"10005","shop_list":["1","2","3","4"]}'
 

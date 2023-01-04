@@ -25,8 +25,8 @@ func RegisterHandlers(router *echo.Echo, handler api.Handler) {
 	clientGroup := router.Group("api/v2", util.AuthCheckMiddleware)
 	clientGroup.POST("/myshop/delete", wrapper.PostApiV2MyshopDelete)
 	clientGroup.POST("/myshop", wrapper.PostApiV2Myshop)
-	clientGroup.GET("/myshop/:memberId", wrapper.GetApiV2MyshopMemberId)
-	clientGroup.GET("/user/detail/:memberId", wrapper.GetApiV2UserDetailMemberId)
+	clientGroup.GET("/myshop/:empNo", wrapper.GetApiV2MyshopEmpNo)
+	clientGroup.GET("/user/detail/:empNo", wrapper.GetApiV2UserDetailEmpNo)
 	clientGroup.POST("/user/update", wrapper.PostApiV2UserUpdate)
 
 }

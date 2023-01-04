@@ -23,11 +23,11 @@ type ServerInterface interface {
 	// (POST /api/v2/myshop/delete)
 	PostApiV2MyshopDelete(ctx echo.Context) error
 	// マイ店舗 一覧取得
-	// (GET /api/v2/myshop/{memberId})
-	GetApiV2MyshopMemberId(ctx echo.Context, memberId GetMyMemberId) error
+	// (GET /api/v2/myshop/{empNo})
+	GetApiV2MyshopEmpNo(ctx echo.Context, empNo GetMyEmpNo) error
 	// 会員情報 参照
-	// (GET /api/v2/user/detail/{memberId})
-	GetApiV2UserDetailMemberId(ctx echo.Context, memberId GetMyMemberId) error
+	// (GET /api/v2/user/detail/{empNo})
+	GetApiV2UserDetailEmpNo(ctx echo.Context, empNo GetMyEmpNo) error
 	// 会員情報 変更
 	// (POST /api/v2/user/update)
 	PostApiV2UserUpdate(ctx echo.Context) error
@@ -65,35 +65,35 @@ func (w *ServerInterfaceWrapper) PostApiV2MyshopDelete(ctx echo.Context) error {
 	return err
 }
 
-// GetApiV2MyshopMemberId converts echo context to params.
-func (w *ServerInterfaceWrapper) GetApiV2MyshopMemberId(ctx echo.Context) error {
+// GetApiV2MyshopEmpNo converts echo context to params.
+func (w *ServerInterfaceWrapper) GetApiV2MyshopEmpNo(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "memberId" -------------
-	var memberId GetMyMemberId
+	// ------------- Path parameter "empNo" -------------
+	var empNo GetMyEmpNo
 
-	err = runtime.BindStyledParameterWithLocation("simple", false, "memberId", runtime.ParamLocationPath, ctx.Param("memberId"), &memberId)
+	err = runtime.BindStyledParameterWithLocation("simple", false, "empNo", runtime.ParamLocationPath, ctx.Param("empNo"), &empNo)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter memberId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter empNo: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetApiV2MyshopMemberId(ctx, memberId)
+	err = w.Handler.GetApiV2MyshopEmpNo(ctx, empNo)
 	return err
 }
 
-// GetApiV2UserDetailMemberId converts echo context to params.
-func (w *ServerInterfaceWrapper) GetApiV2UserDetailMemberId(ctx echo.Context) error {
+// GetApiV2UserDetailEmpNo converts echo context to params.
+func (w *ServerInterfaceWrapper) GetApiV2UserDetailEmpNo(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "memberId" -------------
-	var memberId GetMyMemberId
+	// ------------- Path parameter "empNo" -------------
+	var empNo GetMyEmpNo
 
-	err = runtime.BindStyledParameterWithLocation("simple", false, "memberId", runtime.ParamLocationPath, ctx.Param("memberId"), &memberId)
+	err = runtime.BindStyledParameterWithLocation("simple", false, "empNo", runtime.ParamLocationPath, ctx.Param("empNo"), &empNo)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter memberId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter empNo: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetApiV2UserDetailMemberId(ctx, memberId)
+	err = w.Handler.GetApiV2UserDetailEmpNo(ctx, empNo)
 	return err
 }
 
@@ -137,8 +137,8 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	router.GET(baseURL+"/api/open/healthcheck", wrapper.GetApiOpenHealthcheck)
 	router.POST(baseURL+"/api/v2/myshop", wrapper.PostApiV2Myshop)
 	router.POST(baseURL+"/api/v2/myshop/delete", wrapper.PostApiV2MyshopDelete)
-	router.GET(baseURL+"/api/v2/myshop/:memberId", wrapper.GetApiV2MyshopMemberId)
-	router.GET(baseURL+"/api/v2/user/detail/:memberId", wrapper.GetApiV2UserDetailMemberId)
+	router.GET(baseURL+"/api/v2/myshop/:empNo", wrapper.GetApiV2MyshopEmpNo)
+	router.GET(baseURL+"/api/v2/user/detail/:empNo", wrapper.GetApiV2UserDetailEmpNo)
 	router.POST(baseURL+"/api/v2/user/update", wrapper.PostApiV2UserUpdate)
 
 }

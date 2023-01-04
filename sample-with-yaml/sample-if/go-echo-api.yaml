@@ -32,12 +32,12 @@ paths:
 
 
 
-  /api/v2/user/detail/{memberId}:
+  /api/v2/user/detail/{empNo}:
     get:
       summary: 会員情報 参照
       tags: [ "会員管理" ]
       parameters:
-        - $ref: '#/components/parameters/getMyMemberId'
+        - $ref: '#/components/parameters/getMyEmpNo'
       responses:
         '200':
           description: 会員情報の取得
@@ -158,12 +158,12 @@ paths:
                       error_message: "予期せぬエラーが発生"
                     response: null
 
-  /api/v2/myshop/{memberId}:
+  /api/v2/myshop/{empNo}:
     get:
       summary: マイ店舗 一覧取得
       tags: [ "マイ店舗" ]
       parameters:
-        - $ref: '#/components/parameters/getMyMemberId'
+        - $ref: '#/components/parameters/getMyEmpNo'
       responses:
         '200':
           description: OK
@@ -323,10 +323,10 @@ paths:
 
 components:
   parameters:
-    getMyMemberId:
-      name: memberId
+    getMyEmpNo:
+      name: empNo
       in: path
-      description: 取得対象memberId
+      description: 会員ID
       required: true
       schema:
         type: string
@@ -403,7 +403,7 @@ components:
       type: object
       description: マイ店舗操作インターフェース
       properties:
-        member_id:
+        emp_no:
           type: string
           description: 会員ID
           minLength: 1
@@ -414,7 +414,7 @@ components:
             type: string
 
       required:
-        - member_id
+        - emp_no
         - shop_list
 
     resultMyShop:
@@ -452,54 +452,42 @@ components:
       type: object
       description: 会員情報更新
       properties:
-        member_id:
+        emp_no:
           type: string
           description: 会員ID
           minLength: 1
         user_data:
           type: object
           description: 更新項目一覧
-          items:
-            $ref: '#/components/schemas/userUpdateParam'
+          properties:
+            birth_date:
+              description: 生年月日。フォーマットは"2000-01-01"
+              type: string
+              format: 'date-time'
+            first_name: 
+              description: 名前 
+              type: string
+              default: ""
+            last_name: 
+              description: 名字 
+              type: string
+              default: ""          
+            gender:
+              description: 性別
+              type: string
+            updated_at:
+              description: 更新日
+              type: string
+              format: 'date-time'
+          required:
+            - birth_date
+            - first_name
+            - last_name
+            - gender
+
       required:
-        - member_id
+        - emp_no
         - user_data
-
-    userUpdateParam:
-      type: object
-      description: 会員情報詳細構造体
-      properties:
-        birth_date:
-          description: 生年月日。フォーマットは"2000-01-01T00:00:00Z"
-          type: string
-          format: 'date-time'
-        first_name: 
-          description: 名前 
-          type: string
-          default: ""
-        last_name: 
-          description: 名字 
-          type: string
-          default: ""          
-        gender:
-          description: 性別
-          type: string
-        updated_at:
-          description: 更新日。フォーマットは"2000-01-01T00:00:00Z"
-          type: string
-          format: 'date-time'
-        created_at:
-          description: 作成日。フォーマットは"2000-01-01T00:00:00Z"
-          type: string
-          format: 'date-time'
-      required:
-        - birth_date
-        - first_name
-        - last_name
-        - gender
-        - updated_at
-        - created_at
-
 
 
     resultUserDetail:
@@ -522,9 +510,8 @@ components:
           description: 会員ID
           type: string
         birth_date:
-          description: 生年月日。フォーマットは"2000-01-01T00:00:00Z"
+          description: 生年月日
           type: string
-          format: 'date-time'
         first_name: 
           description: 名前 
           type: string
@@ -552,5 +539,4 @@ components:
         - gender
         - updated_at
         - created_at
-
 

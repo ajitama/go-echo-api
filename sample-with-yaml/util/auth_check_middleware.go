@@ -66,31 +66,31 @@ func AuthCheckMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 			fmt.Println([]byte(output + "\n"))
 			return ErrorResult(ctx, http.StatusUnauthorized, "トークンがありません")
 		}
-		memberId := ""
+		empNo := ""
 		if req.Method == "POST" || req.Method == "PUT" || req.Method == "PATCH" {
 			// Bodyを変数に取得
 			body, err := ioutil.ReadAll(ctx.Request().Body)
 			if err != nil {
 				return ErrorResult(ctx, http.StatusUnauthorized, "メンバーが存在しません")
 			}
-			// member_id取得用構造体
+			// emp_no取得用構造体
 			type jsonMemberId struct {
-				MemberId string `json:"member_id"`
+				EmpNo string `json:"emp_no"`
 			}
 			var mem jsonMemberId
 			json.Unmarshal(body, &mem)
-			memberId = mem.MemberId
+			empNo = mem.EmpNo
 			// Bodyを変数に再セット
 			ctx.Request().Body = ioutil.NopCloser(bytes.NewBuffer(body))
 		} else {
-			// Getリクエスト時のmember_id取得
-			memberId = ctx.Param("memberId")
-			Println("memberId : ", memberId)
+			// Getリクエスト時のemp_no取得
+			empNo = ctx.Param("empNo")
+			Println("empNo: ", empNo)
 		}
-		// mapps_login_token用
-		type MappsLoginToken struct {
-			MemberId string `json:"member_id"`
-		}
+		//// mapps_login_token用
+		//type MappsLoginToken struct {
+		//	MemberId string `json:"member_id"`
+		//}
 		//DB チェック
 		//var count int64
 		//var mappsLoginToken MappsLoginToken

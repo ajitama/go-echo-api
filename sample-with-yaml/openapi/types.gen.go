@@ -37,7 +37,7 @@ type Error struct {
 // マイ店舗操作インターフェース
 type RequestMyShopParams struct {
 	// 会員ID
-	MemberId string `json:"member_id"`
+	EmpNo string `json:"emp_no"`
 
 	// 店舗コード
 	ShopList []string `json:"shop_list"`
@@ -46,10 +46,25 @@ type RequestMyShopParams struct {
 // 会員情報更新
 type RequestUserUpdateParams struct {
 	// 会員ID
-	MemberId string `json:"member_id"`
+	EmpNo string `json:"emp_no"`
 
 	// 更新項目一覧
-	UserData map[string]interface{} `json:"user_data"`
+	UserData struct {
+		// 生年月日。フォーマットは"2000-01-01"
+		BirthDate time.Time `json:"birth_date"`
+
+		// 名前
+		FirstName string `json:"first_name"`
+
+		// 性別
+		Gender string `json:"gender"`
+
+		// 名字
+		LastName string `json:"last_name"`
+
+		// 更新日
+		UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	} `json:"user_data"`
 }
 
 // 失敗
@@ -96,8 +111,8 @@ type ShopList struct {
 
 // 会員情報詳細構造体
 type UserData struct {
-	// 生年月日。フォーマットは"2000-01-01T00:00:00Z"
-	BirthDate time.Time `json:"birth_date"`
+	// 生年月日
+	BirthDate string `json:"birth_date"`
 
 	// 作成日。フォーマットは"2000-01-01T00:00:00Z"
 	CreatedAt time.Time `json:"created_at"`
@@ -118,29 +133,8 @@ type UserData struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-// 会員情報詳細構造体
-type UserUpdateParam struct {
-	// 生年月日。フォーマットは"2000-01-01T00:00:00Z"
-	BirthDate time.Time `json:"birth_date"`
-
-	// 作成日。フォーマットは"2000-01-01T00:00:00Z"
-	CreatedAt time.Time `json:"created_at"`
-
-	// 名前
-	FirstName string `json:"first_name"`
-
-	// 性別
-	Gender string `json:"gender"`
-
-	// 名字
-	LastName string `json:"last_name"`
-
-	// 更新日。フォーマットは"2000-01-01T00:00:00Z"
-	UpdatedAt time.Time `json:"updated_at"`
-}
-
-// GetMyMemberId defines model for getMyMemberId.
-type GetMyMemberId string
+// GetMyEmpNo defines model for getMyEmpNo.
+type GetMyEmpNo string
 
 // PostApiV2MyshopJSONBody defines parameters for PostApiV2Myshop.
 type PostApiV2MyshopJSONBody RequestMyShopParams

@@ -1,6 +1,8 @@
 
 ### 環境
 go version go1.19.2 linux/amd64  
+### hardware
+Mem 2G
 
 
 ### module packageダウンロード(初回のみ)
