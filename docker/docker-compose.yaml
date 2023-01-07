@@ -1,0 +1,39 @@
+version : '3.9'
+services:
+  db:
+    container_name: mysqldb
+    image: mysql:latest
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: example
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      TZ: Asia/Tokyo
+    volumes:
+      - ./mysql/conf/my.cnf:/etc/alternatives/my.cnf
+      - ./mysql/data:/docker-entrypoint-initdb.d # 初期DB
+    healthcheck:
+        ## mysqlが起動するまでのWait
+        test: mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD
+
+
+  go-echo-api:
+    container_name: go-sample-api
+    build:
+      # contextで一つ上の階層を指定。
+      context: ..
+      dockerfile: ./docker/go/Dockerfile
+        #network: host
+    env_file: ../go-echo-sample/.env.sample
+    environment:
+      DBURI: db
+    ports:
+      - 8080:8080
+    depends_on:
+      db:
+        condition: service_healthy
+
+
