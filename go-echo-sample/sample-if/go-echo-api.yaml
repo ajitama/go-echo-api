@@ -2,12 +2,12 @@ openapi: 3.0.0
 tags: [ ]
 info:
   title: go-echo-sample-api
-  version: '0.9'
+  version: '1.0'
   description: Echoサンプル
   contact:
-    name: k-sato
-    url: 'https://tribeat.com'
-    email: info@tribeat.com
+    name: ajitama
+    url: 'https://example.com'
+    email: info@example.com
 
 paths:
   /api/open/healthcheck:
