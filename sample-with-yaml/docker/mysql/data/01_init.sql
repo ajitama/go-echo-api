@@ -1,7 +1,0 @@
-CREATE DATABASE IF NOT EXISTS employees;
-
-
-
-
-
-
