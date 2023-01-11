@@ -30,7 +30,7 @@ func (api Handler) GetApiV2UserDetailEmpNo(ctx echo.Context, empNo openapi.GetMy
 
 		return ctx.JSON(http.StatusOK, response)
 	}
-	util.Println(count)
+	util.Println("件数a:", count)
 	// response.ResponseにDBのデータをセット
 	response.Response = userDetail
 	return ctx.JSON(http.StatusOK, response)

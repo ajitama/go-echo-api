@@ -25,7 +25,8 @@ services:
     build:
       # contextで一つ上の階層を指定。
       context: ..
-      dockerfile: ./docker/go/DockerfileHotReload
+      dockerfile: ./docker/go/Dockerfile
+      #dockerfile: ./docker/go/Dockerfile-Scratch # バイナリ作成、極小コンテナでの実行時はコチラ
     env_file: ../go-echo-sample/.env.sample
     environment:
       DBURI: db
@@ -34,7 +35,5 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      - ./go-echo-sample:/var/src/go-echo-sample
 
 
